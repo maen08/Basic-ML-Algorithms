@@ -21,13 +21,24 @@ predict = 'G3'  # the value we need to predict
 x = np.array(data.drop([predict], 1))  # whole data except G3
 y = np.array(data[predict])
 
- #train_size, 10% of the data for test
+ # train_size, 10% of the data for test
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1) 
 
+# the train
 linear = LinearRegression()
 linear.fit(x_train, y_train)
 
+
+# check the model accuracy
 model_accuracy = linear.score(x_test, y_test)
-print(model_accuracy)
+# print(model_accuracy)
+
+# coefficients of line
+# print('Coefficients:\n', linear.coef_)
+# print('Intercept:\n', linear.intercept_)
 
 
+predictions = linear.predict(x_test)
+
+for x in range(len(predictions)):
+    print(predictions[x], x_test[x], y_test[x])
